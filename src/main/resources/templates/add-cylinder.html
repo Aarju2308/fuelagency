@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Add Cylinder</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="back-button-container">
+            <!-- Back Button -->
+            <a type="button" class="form-back-btn" th:href="@{/}">Back</a>
+
+            <form class="cylinder-form" th:object="${cylinder}" th:action="@{save-cylinder}" method="post">
+                <input type="hidden" th:field="*{id}">
+                <h1 th:text="${title}"></h1>
+                <p th:text="${desc}"></p>
+
+                <div id="success-message"
+                     class="form-message success"
+                     th:style="${successMessage} != null ? 'display:block;' : 'display:none;'">
+                    <span th:text="${successMessage}"></span>
+                </div>
+                <div id="error-message"
+                     class="form-message error"
+                     th:style="${errorMessage} != null ? 'display:block;' : 'display:none;'">
+                    <span th:text="${errorMessage}"></span>
+                </div>
+
+                <!-- Weight Input -->
+                <div class="form-group">
+                    <label for="weight">Weight (in kg)</label>
+                    <input th:field="*{weight}" type="number" min="0" id="weight" name="weight" placeholder="Enter weight" required />
+                </div>
+
+                <!-- Type Dropdown -->
+                <div class="form-group">
+                    <label for="type">Type</label>
+                    <select th:field="*{type}" id="type" name="type" required>
+                        <option value="" disabled selected>Select type</option>
+                        <option value="full">Full</option>
+                        <option value="empty">Empty</option>
+                    </select>
+                </div>
+
+                <!-- Status Dropdown -->
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select th:field="*{status}" id="status" name="status" required>
+                        <option value="" disabled selected>Select status</option>
+                        <option value="available">Available</option>
+                        <option value="delivered">Delivered</option>
+                    </select>
+                </div>
+
+                <!-- Date Input -->
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input th:field="*{lastRefillDate}" type="date" id="date" name="date"
+                           th:value="${formattedLastRefillDate}"required />
+                </div>
+
+                <!-- Submit and Clear Buttons -->
+                <div class="form-buttons">
+                    <button th:text="${title}" type="submit" class="form-submit-btn"></button>
+                    <button type="button" class="form-clear-btn" onclick="clearForm()">Clear Form</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Clear the form fields
+        function clearForm() {
+          document.querySelector('.cylinder-form').reset();
+        }
+
+        // Get today's date in 'yyyy-MM-dd' format
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').value = today;
+
+        // Automatically hide messages after 3 seconds
+        setTimeout(() => {
+            const successMessage = document.getElementById("success-message");
+            const errorMessage = document.getElementById("error-message");
+
+            if (successMessage) successMessage.style.display = "none";
+            if (errorMessage) errorMessage.style.display = "none";
+        }, 3000);
+    </script>
+
+</body>
+</html>
