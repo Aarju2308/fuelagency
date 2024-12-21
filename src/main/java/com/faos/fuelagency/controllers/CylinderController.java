@@ -51,6 +51,8 @@ public class CylinderController {
     @PostMapping("/save-cylinder")
     public String saveCylinder(@ModelAttribute("cylinder") Cylinder cylinder, RedirectAttributes redirectAttributes) {
 
+        System.out.println("Cylinder: " + cylinder);
+
         Cylinder c = cylinderService.saveCylinder(cylinder);
 
         if (c.getId() != null) {
@@ -73,5 +75,15 @@ public class CylinderController {
     public String deleteCylinder(@RequestParam("cylinderId") int id){
         cylinderService.deleteCylinderById(id);
         return "redirect:view-cylinders";
+    }
+
+    @GetMapping("/filterCylinders")
+    @ResponseBody
+    public List<Cylinder> filterCylinders(
+            @RequestParam(defaultValue = "all") String type,
+            @RequestParam(defaultValue = "all") String status,
+            @RequestParam(defaultValue = "") String query) {
+
+        return cylinderService.filterCylinders(type, status, query);
     }
 }

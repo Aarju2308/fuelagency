@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CylinderService {
@@ -32,5 +33,15 @@ public class CylinderService {
 
     public void deleteCylinderById(Integer cylinderId) {
         cylinderRepository.deleteById(cylinderId);
+    }
+
+    public List<Cylinder> filterCylinders(String type, String status, String query) {
+        List<Cylinder> cylinders = cylinderRepository.findAll();
+
+        return cylinders.stream()
+                .filter(cylinder -> "all".equalsIgnoreCase(type) || cylinder.getType().equalsIgnoreCase(type))
+                .filter(cylinder -> "all".equalsIgnoreCase(status) || cylinder.getStatus().equalsIgnoreCase(status))
+                .filter(cylinder -> query.isEmpty() || cylinder.toString().toLowerCase().contains(query.toLowerCase()))
+                .collect(Collectors.toList());
     }
 }

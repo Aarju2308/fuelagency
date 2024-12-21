@@ -12,7 +12,7 @@
             <a type="button" class="form-back-btn" th:href="@{/}">Back</a>
 
             <form class="cylinder-form" th:object="${cylinder}" th:action="@{save-cylinder}" method="post">
-                <input type="hidden" th:field="*{id}">
+                <input type="hidden" th:field="*{id}" >
                 <h1 th:text="${title}"></h1>
                 <p th:text="${desc}"></p>
 
