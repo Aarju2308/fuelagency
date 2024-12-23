@@ -94,8 +94,8 @@
                                <td>${capitalizedType}</td>
                                <td>${capitalizedStatus}</td>
                                <td>${cylinder.lastRefillDate}</td>
-                               <td><button class="table-btn edit-btn">Edit</button></td>
-                               <td><button class="table-btn delete-btn">Delete</button></td>
+                               <td><a href="/update-cylinder?cylinderId=${cylinder.id}" class="table-btn edit-btn">Edit</a></td>
+                               <td><a onclick="return confirm('Are you sure you want to delete cylinder !!')" href="/delete-cylinder?cylinderId=${cylinder.id}" class="table-btn delete-btn">Delete</a></td>
                            </tr>
                        `;
                        tableBody.innerHTML += row;
