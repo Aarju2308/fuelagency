@@ -50,19 +50,24 @@ public class CylinderController {
 
     @PostMapping("/save-cylinder")
     public String saveCylinder(@ModelAttribute("cylinder") Cylinder cylinder, RedirectAttributes redirectAttributes) {
-
+    
         System.out.println("Cylinder: " + cylinder);
-
-        Cylinder c = cylinderService.saveCylinder(cylinder);
-
-        if (c.getId() != null) {
-            redirectAttributes.addFlashAttribute("successMessage", "Cylinder added successfully!");
+    
+    
+        Cylinder savedCylinder = cylinderService.saveCylinder(cylinder);
+    
+        if (savedCylinder.getId() != null) {
+            
+            redirectAttributes.addFlashAttribute("successMessage",
+                "Cylinder added successfully at ID = " + savedCylinder.getId());
         } else {
-            redirectAttributes.addFlashAttribute("errorMessage", "Failed to add the cylinder. Please try again.");
+            redirectAttributes.addFlashAttribute("errorMessage",
+                "Failed to add the cylinder. Please try again.");
         }
-
+    
         return "redirect:/add-cylinder";
     }
+    
 
     @GetMapping("/view-cylinders")
     public String getViewCylinder(Model model){

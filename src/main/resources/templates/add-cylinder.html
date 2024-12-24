@@ -27,11 +27,11 @@
                     <span th:text="${errorMessage}"></span>
                 </div>
 
-                <!-- Weight Input -->
-                <div class="form-group">
-                    <label for="weight">Weight (in kg)</label>
-                    <input th:field="*{weight}" type="number" min="0" id="weight" name="weight" placeholder="Enter weight" required />
-                </div>
+               <!-- Weight Input -->
+<div class="form-group">
+    <label for="weight">Weight (in kg)</label>
+    <input th:field="*{weight}" type="number" min="0" step="0.1" id="weight" name="weight" placeholder="Enter weight" required />
+</div>
 
                 <!-- Type Dropdown -->
                 <div class="form-group">
@@ -53,12 +53,13 @@
                     </select>
                 </div>
 
-                <!-- Date Input -->
-                <div class="form-group">
-                    <label for="date">Date</label>
-                    <input th:field="*{lastRefillDate}" type="date" id="date" name="date"
-                           th:value="${formattedLastRefillDate}"required />
-                </div>
+               <!-- Date Input -->
+<div class="form-group">
+    <label for="date">Date</label>
+    <input th:field="*{lastRefillDate}" type="date" id="date" name="date" 
+           th:value="${formattedLastRefillDate}" max="" required />
+</div>
+
 
                 <!-- Submit and Clear Buttons -->
                 <div class="form-buttons">
@@ -75,9 +76,14 @@
           document.querySelector('.cylinder-form').reset();
         }
 
-        // Get today's date in 'yyyy-MM-dd' format
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('date').value = today;
+      // Set the maximum allowed date to today
+const today = new Date().toISOString().split('T')[0];
+const dateInput = document.getElementById('date');
+dateInput.max = today;
+
+// Optional: Pre-fill the date input with today's date
+dateInput.value = today;
+
 
         // Automatically hide messages after 3 seconds
         setTimeout(() => {
