@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @Table(name = "cylinders")
 public class Cylinder {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Integer id;
     private String status; // available / delivered
     private String type; // full / empty
