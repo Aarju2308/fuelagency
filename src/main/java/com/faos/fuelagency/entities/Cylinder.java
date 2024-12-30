@@ -13,15 +13,20 @@ public class Cylinder {
     private String type; // full / empty
     private float weight;
     private LocalDate lastRefillDate;
+    
+    @ManyToOne
+    @JoinColumn(name = "supplier_id", referencedColumnName = "id") // Foreign key column
+    private Supplier supplier_id;
 
     public Cylinder() {}
 
-    public Cylinder(Integer id, String status, String type, float weight, LocalDate lastRefillDate) {
+    public Cylinder(Integer id, String status, String type, float weight, LocalDate lastRefillDate,Supplier supplier_id) {
         this.id = id;
         this.status = status;
         this.type = type;
         this.weight = weight;
         this.lastRefillDate = lastRefillDate;
+        this.supplier_id=supplier_id;
     }
 
     public Integer getId() {
@@ -63,7 +68,13 @@ public class Cylinder {
     public void setLastRefillDate(LocalDate lastRefillDate) {
         this.lastRefillDate = lastRefillDate;
     }
+    public Supplier getSupplier() {
+        return supplier_id;
+    }
 
+    public void setSupplier(Supplier supplier) {
+        this.supplier_id = supplier;
+    }
     @Override
     public String toString() {
         return "Cylinder{" +
